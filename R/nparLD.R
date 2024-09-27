@@ -232,7 +232,7 @@ show.covariance=show.covariance,order.warning=order.warning)
 dat3<-data.frame(dat2,TG=ht2)
 a2<-ld.ci(dat3[,1],dat3[,pt1],dat3[,5],group=dat3[,6],alpha=0.05,
 time.name=nadat2[pt1],
-group.name=nadat2[pg1], description=FALSE, time.order=levels(factor(dat3[,pt1])),
+group.name=nadat2[pg1], description=FALSE, time.order=time1.order,
 group.order=levels(factor(dat3[,6])),order.warning=FALSE)
 a1$Conf.Int<-a2
 a1$input<-input.list
@@ -257,8 +257,8 @@ for (jj in 0:(ng2-1)){
 for (ss in 1:nt11){
 points(rep(ss+jj/10,2), c(datenhilf[[jj+1]]$Lower[ss],datenhilf[[jj+1]]$Upper[ss]),pch=uu,cex=3,lwd=2,type="o",col=jj+1)
 points((1:nt11)+jj/10,datenhilf[[jj+1]]$RTE,pch=15,lwd=2,type="o",col=jj+1)}}
-axis(1,at=1:nt11, labels=levels(t11))
-legend("top", col=c(1:ng2),paste(nadat2[pg2],levels(g2)),pch=c(rep(10,ng2)),lwd=c(rep(2,ng2)) )}}
+axis(1,at=1:nt11, labels=a1$Conf.Int$Time[1:nt11])
+legend("top", col=c(1:ng2),paste(nadat2[pg2],names(datenhilf)),pch=c(rep(10,ng2)),lwd=c(rep(2,ng2)) )}}
 #----------------------End of the graphic implementation-----------------------#
 class(a1)<-"nparLD"
 return(a1)}}
