@@ -106,8 +106,8 @@ group.name=nadat2[pgf1], description=description,
 time.order=time1.order, group.order=group1.order,plot.RTE=FALSE,show.covariance=show.covariance,order.warning=order.warning)
 a2<-ld.ci(dat2[,1], dat2[,ptf1], dat2[,4], group=dat2[,pgf1], alpha=0.05,
 time.name=nadat2[ptf1],
-group.name=nadat2[pgf1], description=FALSE, time.order=NULL,order.warning=FALSE)
-a2<-a2[order(a2$Group),]
+group.name=nadat2[pgf1], description=FALSE, time.order=time1.order, order.warning=FALSE)
+a2<-a2[order(a2$Group),] # ordered alphabetically by Group="<group.name><glevel>"
 a1$Conf.Int<-a2
 a1$input<-input.list
 #------------------Implementiere die Grafik--------------------#
@@ -115,9 +115,10 @@ if(plot.CI==TRUE){
 uu<-"-"
 samples<-split(a1$Conf.Int,a1$Conf.Int$Group)
 t11<-factor(dat2[,ptf1])
-t22<-factor(dat2[,pgf1])
+##t22<-factor(dat2[,pgf1]) # could already be a factor in different order
+glevel<-substring(names(samples), nchar(nadat2[pgf1])+1)
 nt11<-nlevels(t11)
-nt22<-nlevels(t22)
+nt22<-length(glevel)
 plot(1:nt11,samples[[1]]$RTE,pch=15,type="o",ylim=c(0,1),xlim=c(0,nt11+1),xaxt="n",ylab="",xlab=nadat2[ptf1],cex.lab=1.5,lwd=2)
 for (hh in 0:(nt22-1)){
 for (ss in 1:nt11){
@@ -125,7 +126,7 @@ points(rep(ss+hh/10,2), c(samples[[hh+1]]$Lower[ss],samples[[hh+1]]$Upper[ss]),p
 points((1:nt11)+hh/10,samples[[hh+1]]$RTE,pch=15,lwd=2,type="o",col=hh+1)}}
 axis(1,at=1:nt11, labels=a1$Conf.Int$Time[1:nt11])
 title(main=paste("Relative Effects"))
-legend("top", col=c(1:nt22),paste(nadat2[pgf1],levels(t22)),pch=c(rep(10,nt22)),lwd=c(rep(2,nt22)))}
+legend("top", col=c(1:nt22),paste(nadat2[pgf1],glevel),pch=c(rep(10,nt22)),lwd=c(rep(2,nt22)))}
 #---------------------------End of the Graphic Code----------------------------#
 class(a1)<-"nparLD"
 return(a1)}}
