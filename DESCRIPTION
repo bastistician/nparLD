@@ -1,5 +1,5 @@
 Package: nparLD
-Version: 2.2
+Version: 2.2-1
 Date: 2022-08-06
 Title: Nonparametric Analysis of Longitudinal Data in Factorial
         Experiments
@@ -20,7 +20,3 @@ Description: Performs nonparametric
         (continuous, discrete, purely ordinal, and dichotomous).  Such
         methods are also robust with respect to outliers and for small
         sample sizes.
-NeedsCompilation: no
-Packaged: 2022-08-06 14:39:07 UTC; Matthias
-Repository: CRAN
-Date/Publication: 2022-08-07 00:00:02 UTC
